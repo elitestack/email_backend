@@ -33,12 +33,27 @@ const app = express();
 app.use(helmet());
 app.use(cookieParser());
 
-// CORS Configuration
+
+
+const allowedOrigins = [
+  'http://localhost:3000',
+  'https://octa-xtb.vercel.app'
+];
+
 const corsOptions = {
-  origin: process.env.CLIENT_URL || 'http://localhost:3000',
+  origin: function (origin, callback) {
+    if (!origin || allowedOrigins.includes(origin)) {
+      callback(null, true);
+    } else {
+      callback(new Error('Not allowed by CORS'));
+    }
+  },
   credentials: true,
   exposedHeaders: ['X-User-Email']
 };
+
+app.use(cors(corsOptions));
+
 app.use(cors(corsOptions));
 
 app.use(express.json());
