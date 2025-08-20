@@ -16,11 +16,24 @@ const __dirname = path.dirname(__filename);
 
 const app = express();
 app.use(express.json());
+
+
+const cors = require("cors");
+
 app.use(cors({
-  origin: 'http://localhost:3000',  // allow frontend
-  methods: ['GET','POST'],          // allowed methods
-  allowedHeaders: ['Content-Type']  // allowed headers
+  origin: "http://localhost:3000", // allow frontend
+  methods: ["GET", "POST"],        // allowed methods
+  allowedHeaders: ["Content-Type", "Authorization"], // allowed headers
+  credentials: true                // allow cookies/tokens if needed
 }));
+
+
+
+// app.use(cors({
+//   origin: 'http://localhost:3000',  // allow frontend
+//   methods: ['GET','POST'],          // allowed methods
+//   allowedHeaders: ['Content-Type']  // allowed headers
+// }));
 
 
 
